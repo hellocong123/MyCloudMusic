@@ -24,6 +24,18 @@ android {
     }
 
     buildTypes {
+
+        //  这里定义了两个编译类型，一个是debug,一个release,主要是针对开发环境进行设置
+        //  debug：里的环境是用来开发的时候使用
+        //  release：类型是上线时使用的环境
+
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+        }
+
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -32,6 +44,7 @@ android {
 }
 
 dependencies {
+    //这个能把 libs 里的 jar 包都添加到依赖库，就不用在这里再添加了
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation rootProject.ext.dependencies["appcompat"]
     implementation rootProject.ext.dependencies["constraintlayout"]

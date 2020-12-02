@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">MyCloudMusic</string>
+
+    <!--版本文本-->
+    <string name="copyright">Copyright © 2019 Ixuea. All Rights Reserved</string>
+
+
 </resources>
