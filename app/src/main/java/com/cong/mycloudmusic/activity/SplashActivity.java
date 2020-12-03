@@ -1,14 +1,41 @@
 package com.cong.mycloudmusic.activity;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 
 import com.cong.mycloudmusic.R;
 
 public class SplashActivity extends AppCompatActivity {
+
+    private static final int MSG_NEXT = 1000;
+    private static final long DEFAULT_DELAY_TIME = 3000;
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+
+            switch (msg.what) {
+                case MSG_NEXT:
+                    next();
+                    break;
+            }
+        }
+    };
+
+    private void next() {
+
+        startActivityAfterFinishThis(GuideActivity.class);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,5 +59,20 @@ public class SplashActivity extends AppCompatActivity {
             decorView.setSystemUiVisibility(options);
         }
 
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mHandler.sendEmptyMessage(MSG_NEXT);
+            }
+        }, DEFAULT_DELAY_TIME);
+    }
+
+    public void startActivity(Class<?> clazz) {
+        startActivity(new Intent(this, clazz));
+    }
+
+    public void startActivityAfterFinishThis(Class<?> clazz) {
+        startActivity(new Intent(this, clazz));
+        finish();
     }
 }
